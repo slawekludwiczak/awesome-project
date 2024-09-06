@@ -12,3 +12,4 @@ jobs:
           level: warning
           checkstyle_config: .checkstyle/checkstyle.xml
           checkstyle_version: 10.18.1
+          github_token: ${{ secrets.github_token }}
