@@ -12,6 +12,12 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <sonar.host>http://localhost:9000</sonar.host>
+        <sonar.projectName>awesome</sonar.projectName>
+        <sonar.projectKey>awesome</sonar.projectKey>
+        <sonar.token>${env.SONAR_TOKEN}</sonar.token>
+        <sonar.java.checkstyle.reportPaths>target/checkstyle-result.xml</sonar.java.checkstyle.reportPaths>
+        <sonar.java.pmd.reportPaths>target/pmd.xml</sonar.java.pmd.reportPaths>
     </properties>
 
     <dependencies>
@@ -22,4 +28,50 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.5.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>10.18.1</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <consoleOutput>true</consoleOutput>
+                    <configLocation>./.checkstyle/checkstyle.xml</configLocation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.25.0</version>
+                <configuration>
+                    <printFailingErrors>true</printFailingErrors>
+                    <minimumTokens>20</minimumTokens>
+                    <linkXRef>false</linkXRef>
+                    <rulesets>
+                        <ruleset>.pmd/pmd.xml</ruleset>
+                    </rulesets>
+                </configuration>
+            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-jxr-plugin</artifactId>-->
+            <!--                <version>3.5.0</version>-->
+            <!--            </plugin>-->
+
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.10.0.2594</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>
+
