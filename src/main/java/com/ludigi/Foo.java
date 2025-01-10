@@ -1,13 +1,9 @@
 package com.ludigi;
 
-public class Foo
-{
-
-
-
-    int x;
+public class Foo {
+    private int x;
 
     public Foo() {
-          System.out.println("asdf");
+        System.out.println("asdf");
     }
 }
